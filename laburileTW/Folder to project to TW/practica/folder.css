@@ -1,0 +1,65 @@
+footer {
+  background-color: #ebd6bee5;
+  padding: 20px;
+}
+
+.folder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  font-size: 18px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+h2 {
+  font-size: 20px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Excludem logo-ul (imaginea), telefonul și poșta de la efectele de hover */
+td img {
+  width: 100px;
+  height: auto;
+}
+
+/* Aplica efectul de hover doar pe elementele h2 și link-uri */
+a:hover h2, a:hover {
+  transform: scale(1.1);
+  color: #0073e6; /* Schimbă culoarea la hover */
+}
+
+a {
+  color: inherit; /* Menține culoarea textului inițial pentru link-uri */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Stilizăm telefonul și poșta fără hover */
+td:nth-child(3), td:nth-child(4) h2 {
+  transform: none;
+  color: inherit;
+}
+
+/* Responsivitate */
+@media (max-width: 768px) {
+  table {
+      display: block;
+      width: 100%;
+  }
+
+  td {
+      display: block;
+      width: 100%;
+      text-align: left;
+  }
+}

@@ -1,0 +1,42 @@
+Pentru a porni Visual Basic, urmați acești pași:
+
+Deschideți Microsoft Excel (sau altă aplicație Office, dacă este cazul).
+Accesați fila "Developer" din meniul principal.
+Dacă fila "Developer" nu este vizibilă, activați-o din opțiunile de personalizare ale benzii de opțiuni.
+În fila "Developer", faceți clic pe "Visual Basic" sau "Editor VBA".
+Interfața de lucru cu mediul de dezvoltare Visual Basic Editor (VBE) include:
+
+Fereastra Proiectului, care arată structura proiectului.
+Fereastra de Cod, unde puteți scrie și edita codul sursă.
+Fereastra Immediat, pentru evaluarea expresiilor în timp real.
+Fereastra Locals, care afișează variabilele locale și valorile acestora.
+Fișierele unui proiect Visual Basic includ:
+
+Fișierul principal al proiectului, cu extensia ".xlsm" sau ".vba".
+Fișiere de cod cu extensia ".bas".
+Fișiere de formulare cu extensia ".frm".
+Pentru a adăuga fișiere la un proiect:
+
+Faceți clic dreapta pe proiect în fereastra Proiectului.
+Selectați "Add" și alegeți tipul de fișier pe care doriți să îl adăugați.
+Un obiect în Visual Basic este o entitate cu proprietăți, metode și evenimente. Un instrument este o unealtă sau control (cum ar fi un buton sau o casetă de text), iar un eveniment este o acțiune care declanșează o reacție în cod (cum ar fi clicul pe un buton).
+
+Asocierea evenimentelor se face prin selectarea unui obiect în fereastra Proiectului, apoi alegerea evenimentului dorit din lista drop-down în fereastra de cod.
+
+Proprietățile obiectelor pot fi setate în fereastra de proprietăți, care poate fi accesată prin apăsarea tastei F4 sau făcând clic pe obiect și selectând "Properties".
+
+Proiectarea obiectului numit "forma" (form) se face prin adăugarea unui formular la proiect și apoi personalizarea acestuia cu controale și design.
+
+Proprietățile obiectelor pot fi modificate la etapa de proiectare în fereastra de proprietăți și la etapa de executare prin intermediul codului.
+
+Structura subrutinei în limbajul VBA include:
+
+Declararea subrutinei cu cuvântul cheie "Sub" și specificarea numelui.
+Corpul subrutinei care conține instrucțiuni VBA.
+Utilizarea cuvântului cheie "End Sub" pentru a indica sfârșitul subrutinei.
+Instrucțiunile simple VBA includ, dar nu se limitează la:
+- Declarații de variabile (Dim x As Integer).
+- Instrucțiuni de control, cum ar fi If...Then...Else.
+- Instrucțiuni de buclă, cum ar fi For...Next și Do...Loop.
+- Apeluri de funcții sau proceduri existente.
+- Manipularea datelor și obiectelor în funcție de necesități.

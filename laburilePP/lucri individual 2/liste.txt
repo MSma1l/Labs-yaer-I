@@ -1,0 +1,215 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct lista {
+    char denumire[20];
+    int valoare;
+    int pret;
+    struct lista *next;
+} lista;
+
+lista *head;
+
+int creare(int n) {
+    int i;
+    lista *el, *nod;
+    for (i = 0; i < n; i++) {
+        el = (lista *) malloc(sizeof(lista));
+        if (el == NULL) {
+            return 0;
+        }
+        if (i == 0) {
+            head = el;
+            nod = el;
+        } else {
+            nod->next = el;
+            nod = el;
+        }
+    }
+    nod->next = NULL;
+    return 1;
+}
+
+void read() {
+    lista *el = head;
+    int i = 0;
+    while (el != NULL) {
+        printf("Denumirea: ");
+        scanf("%s", el->denumire);
+        printf("Introdu valoarea: ");
+        scanf("%d", &el->valoare);
+        el = el->next;
+        i++;
+    }
+}
+
+void read_from_file() {
+    FILE *file = fopen("data.bin", "rb");
+    if (file == NULL) {
+        printf("Eroare la deschiderea fișierului!\n");
+        return;
+    }
+    lista *el = head;
+    while (el != NULL) {
+        fread(el, sizeof(lista), 1, file);
+        el = el->next;
+    }
+    fclose(file);
+}
+
+void write_to_file() {
+    FILE *file = fopen("data.bin", "wb");
+    if (file == NULL) {
+        printf("Eroare la deschiderea fișierului!\n");
+        return;
+    }
+    lista *el = head;
+    while (el != NULL) {
+        fwrite(el, sizeof(lista), 1, file);
+        el = el->next;
+    }
+    fclose(file);
+}
+
+void afisare() {
+    lista *el = head;
+    int i = 0;
+    while (el != NULL) {
+        printf("%s: %d\n", el->denumire, el->valoare);
+        el = el->next;
+        i++;
+    }
+}
+
+void cautare_val() {
+    lista *el = head;
+    int k, count = 0, poz = 0;
+    puts("\nDati valoarea de cautat\n");
+    scanf("%d", &k);
+    while (el != NULL) {
+        poz++;
+        if ((el->valoare) == k) {
+            printf("%s: %d a fost gasit pe pozitia %d\n", el->denumire, el->valoare, poz);
+            count++;
+        }
+        el = el->next;
+    }
+    if (count == 0)
+        printf("Nu exista asa valoare!\n");
+}
+
+void cautare_den() {
+    lista *el = head;
+    int count = 0, poz = 0;
+    char den[20];
+    puts("\nDati denumirea de cautat\n");
+    scanf("%s", den);
+    while (el != NULL) {
+        poz++;
+        if (strcmp(den, el->denumire) == 0) {
+            printf("%s: %d a fost gasit pe pozitia %d\n", el->denumire, el->valoare, poz);
+            count++;
+        }
+        el = el->next;
+    }
+    if (count == 0)
+        printf("Nu exista asa valoare!\n");
+}
+
+void InserareInceput() {
+    lista *el = (lista *) malloc(sizeof(lista));
+    printf("Denumirea: ");
+    scanf("%s", el->denumire);
+    printf("Introdu valoarea: ");
+    scanf("%d", &el->valoare);
+    el->next = head;
+    head = el;
+}
+
+void InserareSfarsit() {
+    lista *el = (lista *) malloc(sizeof(lista));
+    printf("Denumirea: ");
+    scanf("%s", el->denumire);
+    printf("Introdu valoarea: ");
+    scanf("%d", &el->valoare);
+    el->next = NULL;
+    if (head == NULL) {
+        head = el;
+    } else {
+        lista *nod = head;
+        while (nod->next != NULL) {
+            nod = nod->next;
+        }
+        nod->next = el;
+    }
+}
+
+void InserareInterior() {
+    lista *el = (lista *) malloc(sizeof(lista));
+    int poz = 0, k;
+    printf("Denumirea: ");
+    scanf("%s", el->denumire);
+    printf("Introdu valoarea: ");
+    scanf("%d", &el->valoare);
+    if (head == NULL) {
+        head = el;
+        return;
+    }
+    puts("\nDati pozitia dupa care doriti inserarea elementului nou \n");
+    scanf("%d", &k);
+    lista *nod = head;
+    while (nod->next != NULL) {
+        poz++;
+        if (poz == k) {
+            el->next = nod->next;
+            nod->next = el;
+            return;
+        }
+        nod = nod->next;
+    }
+    el->next = NULL;
+    nod->next = el;
+}
+
+void stergeElement() {
+    int poz, k = 0;
+    if (head == NULL) return;
+    puts("\nIntroduceti pozitia elementului de exclus \n");
+    scanf("%d", &poz);
+    if (poz == 1) {
+        lista *deSters = head;
+        head = head->next;
+        free(deSters);
+        return;
+    }
+    lista *nod = head;
+    while (nod->next != NULL) {
+        k++;
+        if (poz == k + 1) {
+            lista *deSters = nod->next;
+            nod->next = nod->next->next;
+            free(deSters);
+            return;
+        }
+        nod = nod->next;
+    }
+}
+
+int main() {
+    int n;
+    printf("Introdu numarul de elemente din lista\n");
+    scanf("%d", &n);
+    creare(n);
+    read();
+    afisare();
+    cautare_val();
+    cautare_den();
+    InserareInceput();
+    InserareSfarsit();
+    InserareInterior();
+    stergeElement();
+    afisare();
+    write_to_file();
+    return 0;
+}

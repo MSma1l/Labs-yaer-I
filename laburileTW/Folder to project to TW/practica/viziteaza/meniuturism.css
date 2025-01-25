@@ -1,0 +1,67 @@
+/* Resetare stiluri */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* Stiluri pentru header */
+header {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url(meniu.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    justify-content: space-between;
+    color: #fff;
+    padding: 20px;
+    z-index: 1000;
+}
+
+/* Stil pentru logo */
+#logo {
+    border-radius: 30px;
+    width: 170px;
+    height: auto;
+}
+
+/* Stil pentru lista de navigare */
+header nav ul {
+    display: flex;
+    flex-direction: column; /* Afișează elementele pe verticală */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stil pentru fiecare element de listă */
+header nav ul li {
+    position: relative;
+}
+
+/* Stil general pentru toate linkurile */
+header nav ul li a {
+    padding: 16px;
+    color: beige;
+    display: block;
+}
+
+/* Stilizare la hover pentru linkul Înapoi */
+header nav ul li:first-child a:hover {
+    color: blanchedalmond;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundal negru semi-transparent */
+}
+
+/* Stil pentru titlul "Muzeie" */
+header nav ul li h1 {
+    margin-top: 10px;    /* Spațiu între "Înapoi" și "Muzeie" */
+    font-size: 75px;     /* Dimensiune pentru titlu */
+    color: beige;        /* Culoarea textului */
+    text-align: center;  /* Centrarea textului */
+}

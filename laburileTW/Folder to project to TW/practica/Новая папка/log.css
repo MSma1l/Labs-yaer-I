@@ -1,0 +1,162 @@
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+body {
+     padding-top: 0px; 
+    padding-bottom: 0px; 
+    background-color: black;
+    overflow-x: hidden;
+}
+
+/* Style the header */
+header {
+   position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url(oi.jpeg);
+    background-repeat: no-repeat;
+     background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.meniu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Cooper Black', sans-serif;
+}
+
+.top_meniu ul {
+    list-style: none;
+    display: flex;
+}
+
+.top_meniu li {
+    margin-right: 40px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.top_meniu a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    display: inline-block;
+    font-family: 'Cooper Black', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+.top_meniu li:hover {
+    background-color: rgba(51, 51, 51, 0.7);
+}
+
+.top_meniu li:hover a {
+    transform: scale(1);
+    font-size: 18px;
+}
+.alla {
+    color: #fff; 
+    text-decoration: none; 
+    size: 20 px;
+}
+
+main {
+    text-align: center;
+    display: flex;
+     height: 2200px; 
+    padding: 10px;
+    width: 70%;
+    margin: auto;
+    background-color: rgb(165, 42, 42, 0.5) ; 
+    color: #333;
+    justify-content: space-around;
+   
+}
+
+label {
+    display: flex;
+    padding-inline: 10px;
+}
+
+.plm{
+   flex-direction: column;
+}
+.mlp{
+    flex-direction: column;
+}
+
+span {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+input[type="text"]{
+    width: 300px;
+    background-color:#ADFF2F;
+    border-radius: 15px;
+}
+
+
+.butt {
+    width: 200px; /* Lățimea dorită pentru butoane */
+    height: 50px; /* Înălțimea dorită pentru butoane */
+    font-size: 18px; /* Mărimea fontului pentru textul butoanelor */
+    background-attachment: rgba(0,0,139,0.7);
+    border-radius: 20px;
+    background-color: #191970;
+
+}
+
+
+h1 {
+    display: flex;
+    align:center;
+    color: rgba(255, 255, 255, 1.0);
+}
+.text {
+    display: flex;
+    align: center;
+    font-size: 150%;
+    color: rgba(255, 150, 100, 1.0);
+}
+a {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+footer {
+      position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 1px;
+    z-index: 1000; 
+}
+
+
+.folder {
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+}
+

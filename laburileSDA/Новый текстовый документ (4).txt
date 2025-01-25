@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+// stiva dinamica cu urmatoarele campuri mai jos  datele se iau din stiva se eau din fisier textual si contine urmatoarele conditii 
+typedef struct  Automobil
+{
+  char Descriere [500]
+  int  pret;
+
+}
+// functia de a manipula cu datele de stive 
+void  push (){
+
+    int val;
+    struct Automobil *ptr = (struct Automobil *) malloc ( sizeof (struct Automobil));
+
+    printf  ("Introduceți valoarea de împins:");
+    scanf ("%d",&val);
+
+    if (isEmpty()){
+      ptr->val = val;
+      ptr->next = NULL;
+      head = ptr;
+    }
+    else {
+      ptr->val = =val;
+      ptr->next = head;
+      head = ptr;
+    }
+}
+
+void pop (){
+
+    struct Automobil *ptr;
+    if(isEmpty())
+    printf("Stiva este goală!\n");
+    else {
+      ptr = head;
+      head = head->next;
+      free(ptr);
+    }
+}
+
+void peek (){
+
+    if (isEmpty())
+    printf("Stiva este goala\n");
+    else 
+    printf("%d este elementul cel mai de sus al stivei\n");
+
+}
+
+void isEmpty (){
+
+ if(head == NULL){
+ return true;
+ }
+ return false;
+}
+
+void display (){
+
+    struct Automobil * = head;
+     if (isEmpty())
+     printf("Stiva este goala\n");
+     else{
+      while ( ptr!=NULL){
+        printf("%d",ptr->val);
+        ptr = ptr->next;
+      }
+     }
+}
+// functia citire a lementelor stive din fisiere textual 
+void inputtxt (){
+  int i = 0;
+  for(i;i< n ; i++){
+    fscanf(input.txt,"%s %d",red[i]->Descriere,&red[i]->pret);
+  }
+  }
+//functia ce va calcula cate spatii are textul din campl descrieere al fiecaruui element si sa le afiseze intrun fisier textual   intro linie 
+void control (){
+
+}
+// se gaseste cel mai lung cuvant  din campul descrieere si il va adauga  fiecarui element in fisier binar fiecare din linie noua 
+void cuvant ();
+//functia ce va calcula pretul mediu si il va returna in main si apoi va fi afisat in consola din main 
+ float pretmediu ();
+// la sfrasit se va eliberra spatiu de meorie aloct dinamic in functia main 
+
+
+
+int main () {
+
+int n;
+ struct Automobil = *red;
+ red = 
+File *inp;
+File *opt;
+ inp = fopen("input/txt")
+
+}

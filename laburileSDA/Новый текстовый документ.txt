@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+
+void meniu(int *arr, int n);
+void citire(int *arr, int n);
+void alocare(int *arr, int n);
+void afisare(int *arr, int n);
+void random_arr(int *arr, int n);
+void freemem(int *arr, int n);
+
+int main() {
+    int n;
+
+    printf("Introduceți dimensiunea array-ului (număr par): ");
+    scanf("%d", &n);
+
+    if (n % 2 != 0) {
+        printf("Dimensiunea array-ului trebuie să fie un număr par. Ieșire din program.\n");
+        return 1;
+    }
+    int **arr[n];
+    menu(arr, n);
+
+    return 0;
+}
+void meniu(int *arr, int n) {
+    int optiune;
+// meniul ...
+    scanf("%d", &optiune);
+
+    switch (optiune) {
+        case 1:
+           
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            
+            exit(0);
+        default:
+            printf("Opțiune invalidă! Introduceți din nou.\n");
+            break;
+    }
+
+    menu(arr, n);  // Apelul recursiv al meniului
+}
+void alocare(int *arr, int n){
+   arr = malloc(n * sizeof(int *));
+   for(int i = 0; i < n; i++){
+        arr[i] = calloc(n, sizeof(int));
+   }
+   if (arr == NULL) {
+       printf("Eroare. Nu s-a alocat memorie.\n");
+       exit(1);
+     } else {
+        printf("Succes.\n");
+       meniu(a, arr, n);
+  }
+}
+void citire(int **arr,int n){
+
+  for(int i=0;i<n;i++){
+    printf(" introduceti vakori pentru array ");
+    scanf("%d",&arr[i]);
+  }
+}
+void afisare(int **arr,int n){
+
+  for (int i=0;i<n,i++){
+    printf("%d",arr[i]);
+  }
+}
+void random_arr(int **arr,int n){
+       srand(time(NULL));
+       for(int **arr,int n){
+        arr[i]=rand () % 100;
+       }
+       printf("Tablou a fost complectat cu valori random");
+}
+void freemem(int **arr,int n){
+      free(arr);
+}

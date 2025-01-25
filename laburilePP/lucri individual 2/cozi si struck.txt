@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Prototipurile funcțiilor
+void adauga(); // Adaugă un element în vârful stivei
+void scoate(); // Elimină și returnează elementul din vârful stivei
+void priveste(); // Returnează elementul din vârful stivei
+bool esteVida(); // Verifică dacă stiva este în stare de Underflow sau nu
+void afiseaza(); // Afișează elementele stivei
+
+struct nod {
+    int val;
+    struct nod *urmator;
+};
+
+struct nod *varf = NULL;
+
+int main() {
+    int optiune;
+    while (1) {
+        printf("\nAlege o opțiune:");
+        printf("\n1: Adaugă \n2: Scoate \n3: Privește \n4: Afișează \n0: Ieșire\n");
+        scanf("%d", &optiune);
+        switch (optiune) {
+            case 1: adauga(); break;
+            case 2: scoate(); break;
+            case 3: priveste(); break;
+            case 4: afiseaza(); break;
+            case 0: exit(0);
+            default: printf("Opțiune greșită!\n");
+        }
+    }
+    return 0;
+}
+
+bool esteVida() {
+    return varf == NULL;
+}
+
+void priveste() {
+    if (esteVida())
+        printf("Stiva este goală\n");
+    else
+        printf("%d este elementul din vârful stivei\n", varf->val);
+}
+
+void adauga() {
+    int valoare;
+    struct nod *ptr = (struct nod *) malloc(sizeof(struct nod));
+    printf("Introdu valoarea de adăugat: ");
+    scanf("%d", &valoare);
+    ptr->val = valoare;
+    ptr->urmator = varf;
+    varf = ptr;
+}
+
+void scoate() {
+    struct nod *ptr;
+    if (esteVida())
+        printf("Stiva este goală!\n");
+    else {
+        ptr = varf;
+        varf = varf->urmator;
+        free(ptr);
+    }
+}
+
+void afiseaza() {
+    struct nod *ptr = varf;
+    if (esteVida())
+        printf("Stiva este goală!\n");
+    else {
+        while (ptr != NULL) {
+            printf("%d ", ptr->val);
+            ptr = ptr->urmator;
+        }
+        printf("\n");
+    }
+}
+

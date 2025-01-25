@@ -1,0 +1,65 @@
+
+main {
+    height: 1900px; 
+    padding: 0px;
+    width: 70%;
+    margin: auto;
+    background-color: rgba(214, 221, 219, 0.5);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+ iframe main {
+    margin: 0;
+    padding: 50px;
+ }
+
+.person-photo {
+    text-align: center;
+    max-width: 200px; /* Limitează lățimea fotografiei */
+    margin-left: 360px; /* Adaugă spațiu între fotografie și tabel */
+}
+
+.person-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Colțuri rotunjite pentru imagine */
+}
+
+.person-info {
+    flex: 1;
+}
+
+.person-info table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+.person-info td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Linia dintre rânduri */
+}
+
+/* Responsivitate pentru ecrane mici */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .person-photo {
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .person-photo img {
+        max-width: 150px;
+    }
+
+    .person-info {
+        width: 100%;
+    }
+}

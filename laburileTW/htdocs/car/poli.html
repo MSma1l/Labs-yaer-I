@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="login.css">
+    <link rel="icon" type="imagenes" href="news.png">
+	<title>CarMax</title>
+</head>
+<body >
+	<header>
+		<div class="meniu">
+			<div class="logo">
+				<a href=""><H1>CarM</H1></a>
+			</div>
+			<div class="top_meniu">
+				<ul>
+					<li><a href="Log.Pag.php">Log In</a></li>
+					<li><a href="Registratura.php">Register</a></li>
+				</ul>
+			</div>
+		</div>		
+	</header>
+	<main>
+        <div class="reg">
+            <h1 id="item">Log In </h1>
+            <br>
+            
+			<form  action="auth.php"  method="post" id="log-form">
+   		 <input type="text" name="loghinul" type="date" id="loger" placeholder="Introduceti loghinul">
+    		<input type="password" name="parola" type="date" id="parol"  placeholder="Introduceti parola">
+			<div class="button">
+    		<button type="submit" id="log_in"><h1>Log In</h1></button>
+			<div id="loginResponse"></div> 
+			 </div>
+			 
+    </div>
+    </main>
+ 	<footer>
+ 		<div class="folder">
+ 			<h4> © Laborator la Tehnologii Web care este realizat de Chistol Maxim Grupa IA-233</h4>
+ 			
+ 		</div>
+ 	</footer>
+
+	<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "auth.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    document.getElementById("loginResponse").innerHTML = xhr.responseText;
+                } else {
+                    console.error("Error occurred while processing the request.");
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+
+</script>
+
+<script src="JS1.js"></script>
+</html>

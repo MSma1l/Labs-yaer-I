@@ -1,0 +1,405 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+
+void meniu(int *vector, int n);
+void citire(int *vector, int n);
+//void alocare(int **vector, int n);
+void afisare(int *vector, int n);
+void random_arr(int *vector, int n);
+void freemem(int *vector);
+double media_aritmetica_pozitii(int *vector, int n, int pozitii[]);
+void sortare_bubblesort(int *vector, int n);
+void manipulare_array(int *vector, int n);
+
+int main() {
+    int n;
+
+    printf("Introduceți dimensiunea vectorului (număr par): ");
+    scanf("%d", &n);
+
+    if (n % 2 != 0) {
+        printf("Dimensiunea vectorului trebuie să fie un număr par. Ieșire din program.\n");
+        return 1;
+    }
+    printf("\nSe aloca memorie pentru vector......\n");
+    int *vector = (int *)malloc(n * sizeof(int));
+    if (vector == NULL) {
+        printf("Eroare. Nu s-a alocat memorie.\n");
+        return 1;
+    }
+    printf("\nMemoria sa alocat cu succes!!!\n");
+    meniu(vector, n);
+
+    return 0;
+}
+
+void meniu(int *vector, int n) {
+    int optiune;
+
+    // meniul ...
+    printf("\n__________Meniu_________\n"
+           "\n 1.Citire de la Tastatura \n"
+           "\n 2.Random Valori\n"
+           "\n 3.Afisare Vector\n"
+           "\n 4.Efectuarea conditiiei din Varianta\n"
+           "\n 5.Esire din Program\n"
+           "\n Alegeti optiunea:");
+    scanf("%d", &optiune);
+    printf("\n\n");
+    switch (optiune) {
+        case 1:
+            // citire de la tastatura a valorilor
+            citire(vector, n);
+            meniu(vector, n);
+            break;
+        case 2:
+            // random completare
+            random_arr(vector, n);
+            meniu(vector, n);
+            break;
+        case 3:
+            // afisare a vector
+            afisare(vector, n);
+            break;
+        case 4:
+            // Efectuarea conditiei din varianta
+            manipulare_array(vector, n);
+            meniu(vector, n);
+            break;
+        case 5:
+            // Iesire din program
+            freemem(vector);
+            exit(0);
+        default:
+            printf("Optiune invalida! Introduceti din nou.\n");
+            break;
+    }
+
+    meniu(vector, n);  // Apelul recursiv al meniului
+}
+
+void citire(int *vector, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Introduceti valoarea pentru vector[%d]: ", i);
+        scanf("%d", &vector[i]);
+    }
+}
+
+void afisare(int *vector, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", vector[i]);
+    }
+    printf("\n");
+}
+
+void random_arr(int *vector, int n) {
+    srand(time(NULL));
+    for (int i = 0; i < n; i++) {
+        vector[i] = rand() % 100;
+    }
+    printf("Vectorul a fost completat cu valori random.\n");
+}
+
+void freemem(int *vector) {
+    free(vector);
+}
+
+double media_aritmetica_pozitii(int *vector, int n, int pozitii[]) {
+    double suma = 0;
+    int count = 0;
+    for (int i = 0; i < n; ++i) {
+        if (pozitii[i] < n) {
+            suma += vector[pozitii[i]];
+            count++;
+        }
+    }
+    return count > 0 ? suma / count : 0;
+}
+
+void schimba(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(int *vector, int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && vector[left] > vector[largest])
+        largest = left;
+
+    if (right < n && vector[right] > vector[largest])
+        largest = right;
+
+    if (largest != i) {
+        schimba(&vector[i], &vector[largest]);
+        heapify(vector, n, largest);
+    }
+}
+
+void build_max_heap(int *vector, int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(vector, n, i);
+    }
+}
+
+void sortare_heapsort(int *vector, int n) {
+    build_max_heap(vector, n);
+
+    for (int i = n - 1; i > 0; i--) {
+        schimba(&vector[0], &vector[i]);
+        heapify(vector, i, 0);
+    }
+}
+
+void sortare_countingsort(int *vector, int n) {
+    if (n <= 1) {
+        return; // Vectorul este deja sortat sau gol
+    }
+
+    // Găsește valoarea maximă din vector
+    int max = vector[0];
+    for (int i = 1; i < n; i++) {
+        if (vector[i] > max) {
+            max = vector[i];
+        }
+    }
+
+    // Alocă memorie pentru vectorul de frecvențe
+    int *frecvente = (int *)malloc((max + 1) * sizeof(int));
+    if (frecvente == NULL) {
+        printf("Eroare la alocarea de memorie\n");
+        return;
+    }
+
+    // Inițializează vectorul de frecvențe cu 0
+    for (int i = 0; i <= max; i++) {
+        frecvente[i] = 0;
+    }
+
+    // Calculează frecvențele
+    for (int i = 0; i < n; i++) {
+        frecvente[vector[i]]++;
+    }
+
+    // Reconstruiește vectorul sortat
+    int index = 0;
+    for (int i = 0; i <= max; i++) {
+        while (frecvente[i] > 0) {
+            vector[index] = i;
+            index++;
+            frecvente[i]--;
+        }
+    }
+
+    // Eliberează memoria alocată
+    free(frecvente);
+}
+
+int getMax(int vector[], int n) {
+    int max = vector[0];
+    for (int i = 1; i < n; i++)
+        if (vector[i] > max)
+            max = vector[i];
+    return max;
+}
+
+// Funcție pentru a efectua sortarea prin counting sort bazat pe un anumit digit (exp)
+void countingSort(int vector[], int n, int exp) {
+    const int radix = 10;  // Baza pentru numărul de cifre
+    int output[n];         // Vectorul de ieșire
+    int count[radix];
+
+    for (int i = 0; i < radix; i++)
+        count[i] = 0;
+
+    // Contorizează frecvența fiecărei cifre la poziția curentă
+    for (int i = 0; i < n; i++)
+        count[(vector[i] / exp) % radix]++;
+
+    // Calculul pozițiilor finale ale fiecărei cifre în vectorul de ieșire
+    for (int i = 1; i < radix; i++)
+        count[i] += count[i - 1];
+
+    // Construiește vectorul de ieșire
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(vector[i] / exp) % radix] - 1] = vector[i];
+        count[(vector[i] / exp) % radix]--;
+    }
+
+    // Copiază vectorul de ieșire în vectorul original
+    for (int i = 0; i < n; i++)
+        vector[i] = output[i];
+}
+
+// Funcție principală pentru a efectua sortarea radixsort pe un vector
+void radixsort(int vector[], int n) {
+    // Găsește valoarea maximă pentru a determina numărul de cifre
+    int max = getMax(vector, n);
+
+    // Efectuează counting sort pentru fiecare cifră
+    for (int exp = 1; max / exp > 0; exp *= 10)
+        countingSort(vector, n, exp);
+}
+
+void combsort(int vector[], int n) {
+    const float shrink_factor = 1.3;  // Factorul de contracție
+
+    int gap = n;  // Setează spațiul inițial între elemente
+    int swapped = 1;
+
+    while (gap > 1 || swapped) {
+        // Actualizează spațiul între elemente
+        if (gap > 1) {
+            gap = (int)(gap / shrink_factor);
+        }
+
+        // Resetăm variabila de schimbare a pozițiilor
+        swapped = 0;
+
+        // Efectuăm comparații și interschimbări
+        for (int i = 0; i < n - gap; i++) {
+            if (vector[i] > vector[i + gap]) {
+                // Realizăm interschimbarea
+                int temp = vector[i];
+                vector[i] = vector[i + gap];
+                vector[i + gap] = temp;
+
+                // Setăm variabila pentru a indica o schimbare
+                swapped = 1;
+            }
+        }
+    }
+}
+
+void merge(int vector[], int stanga, int mijloc, int dreapta) {
+    int n1 = mijloc - stanga + 1;
+    int n2 = dreapta - mijloc;
+
+    // Creează două sub-vectori temporari
+    int stanga_vector[n1];
+    int dreapta_vector[n2];
+
+    // Copiază datele în sub-vectorii temporari
+    for (int i = 0; i < n1; i++)
+        stanga_vector[i] = vector[stanga + i];
+    for (int j = 0; j < n2; j++)
+        dreapta_vector[j] = vector[mijloc + 1 + j];
+
+    // Combinați sub-vectorii înapoi în vectorul original
+    int i = 0; // Indexul pentru primul sub-vector
+    int j = 0; // Indexul pentru al doilea sub-vector
+    int k = stanga; // Indexul pentru vectorul combinat
+
+    while (i < n1 && j < n2) {
+        if (stanga_vector[i] <= dreapta_vector[j]) {
+            vector[k] = stanga_vector[i];
+            i++;
+        } else {
+            vector[k] = dreapta_vector[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copiază elementele rămase din stanga_vector, dacă există
+    while (i < n1) {
+        vector[k] = stanga_vector[i];
+        i++;
+        k++;
+    }
+
+    // Copiază elementele rămase din dreapta_vector, dacă există
+    while (j < n2) {
+        vector[k] = dreapta_vector[j];
+        j++;
+        k++;
+    }
+}
+
+// Funcție de sortare MergeSort pentru a sorta un vector unidimensional
+void mergeSort(int vector[], int stanga, int dreapta) {
+    if (stanga < dreapta) {
+        // Găsește mijlocul vectorului
+        int mijloc = stanga + (dreapta - stanga) / 2;
+
+        // Sortează prima jumătate
+        mergeSort(vector, stanga, mijloc);
+
+        // Sortează a doua jumătate
+        mergeSort(vector, mijloc + 1, dreapta);
+
+        // Combinați cele două jumătăți sortate
+        merge(vector, stanga, mijloc, dreapta);
+    }
+}
+
+void sortare_bubblesort(int *vector, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (vector[j] > vector[j + 1]) {
+                schimba(&vector[j], &vector[j + 1]);
+            }
+        }
+    }
+}
+
+void manipulare_array(int *vector, int n) {
+    int *pozitii_pare = (int *)malloc(n * sizeof(int));
+    int *pozitii_impare = (int *)malloc(n * sizeof(int));
+
+    int count_pare = 0, count_impare = 0;
+    for (int i = 0; i < n; ++i) {
+        if (i % 2 == 0) {
+            pozitii_pare[count_pare++] = i;
+        } else {
+            pozitii_impare[count_impare++] = i;
+        }
+    }
+
+    double media_pare = media_aritmetica_pozitii(vector, n, pozitii_pare);
+    double media_impare = media_aritmetica_pozitii(vector, n, pozitii_impare);
+
+    if (media_pare > media_impare) {
+        sortare_heapsort(vector, n);
+    } else {
+        sortare_countingsort(vector, n);
+    }
+
+    int are_prime = 0;
+    for (int i = 0; i < n; ++i) {
+        if (vector[i] > 1) {
+            are_prime = 1;
+            break;
+        }
+    }
+
+    if (are_prime) {
+        radixsort(vector, n);
+    } else {
+        combsort(vector, n);
+    }
+
+    int produs_negativ = 1;
+    for (int i = 0; i < n; ++i) {
+        if (vector[i] < 0) {
+            produs_negativ *= vector[i];
+        }
+    }
+
+    if (produs_negativ < 0) {
+        mergeSort(vector, 0, n - 1);
+    } else {
+        sortare_bubblesort(vector, n);
+    }
+
+    afisare(vector, n);
+    
+    free(pozitii_pare);
+    free(pozitii_impare);
+    meniu(vector, n);
+}

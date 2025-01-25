@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Node {
+    char data[100];
+    struct Node* next;
+} Node;
+
+typedef struct Queue {
+    Node* front;
+    Node* rear;
+} Queue;
+
+
+Queue* createQueue() {
+    Queue* q = (Queue*)malloc(sizeof(Queue));
+    q->front = q->rear = NULL;
+    return q;
+}
+
+
+void enqueue(Queue* q, char* str) {
+    Node* temp = (Node*)malloc(sizeof(Node));
+    strcpy(temp->data, str);
+    temp->next = NULL;
+    if (q->rear == NULL) {
+        q->front = q->rear = temp;
+        return;
+    }
+    q->rear->next = temp;
+    q->rear = temp;
+}
+
+
+void displayQueue(Queue* q) {
+    if (q->front == NULL) {
+        printf("Coada este goală.\n");
+        return;
+    }
+    Node* temp = q->front;
+    printf("Elementele cozii sunt:\n");
+    while (temp != NULL) {
+        printf("%s\n", temp->data);
+        temp = temp->next;
+    }
+}
+
+
+void dequeue(Queue* q) {
+    if (q->front == NULL) {
+        printf("Coada este goală.\n");
+        return;
+    }
+    Node* temp = q->front;
+    q->front = q->front->next;
+    if (q->front == NULL) {
+        q->rear = NULL;
+    }
+    printf("Elementul eliminat: %s\n", temp->data);
+    free(temp);
+}
+
+
+int main() {
+    Queue* q = createQueue();
+    int choice;
+    char str[100];
+
+    do {
+        printf("\nMeniu:\n");
+        printf("1 - Inserați\n");
+        printf("2 - Afișați\n");
+        printf("3 - Eliminați\n");
+        printf("4 - Ieșiti\n");
+        printf("Introduceți codul operației: ");
+        scanf("%d", &choice);
+        getchar();  
+
+        switch (choice) {
+            case 1:
+                printf("Introduceți string-ul: ");
+                fgets(str, 100, stdin);
+                str[strcspn(str, "\n")] = '\0';  
+                enqueue(q, str);
+                break;
+            case 2:
+                displayQueue(q);
+                break;
+            case 3:
+                dequeue(q);
+                break;
+            case 4:
+                printf("Ieșire din program.\n");
+                break;
+            default:
+                printf("Opțiune invalidă. Încercați din nou.\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}

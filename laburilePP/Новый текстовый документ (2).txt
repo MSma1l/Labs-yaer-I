@@ -1,0 +1,141 @@
+Private Sub Clearlip_Click()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim i As Long
+    
+    ' Referin?a la foaia activa
+    Set ws = ThisWorkbook.ActiveSheet
+    
+    ' Gase?te ultimul rвnd utilizat
+    lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+    
+    ' Parcurge fiecare linie, cu excep?ia primei
+    For i = 2 To lastRow
+        ' ?terge con?inutul din fiecare celula din linie
+        ws.Rows(i).ClearContents
+    Next i
+End Sub
+\\ pentru a sterge totul din foie 
+
+Private Sub CommandButton1_Click()
+UserForm1.Show
+End Sub
+\\ pentru pornire
+
+
+Public Sub buget_Click()
+    Dim i As Integer
+    Dim IndPol As Integer
+    Dim wsStudent As Worksheet
+    Dim wsbuget As Worksheet
+    
+    ' Referin?e la foile de lucru relevante
+    Set wsStudent = ThisWorkbook.Sheets("Student")
+    Set wsbuget = ThisWorkbook.Sheets("Buget ")
+    
+    IndPol = 2 ' Linia de start pentru foaia de lucru "Buget"
+    
+
+    For i = 1 To 20
+        ' Verificarea daca media este mai mare sau egala cu 7.8
+        If wsStudent.Cells(i, 7).Value >= 7.8 Then
+            ' Adaugarea informa?iilor pe foaia de lucru "Buget"
+            wsbuget.Cells(IndPol, 1).Value = wsStudent.Cells(i, 1).Value ' Nume
+            wsbuget.Cells(IndPol, 2).Value = wsStudent.Cells(i, 2).Value ' Prenume
+            wsbuget.Cells(IndPol, 3).Value = wsStudent.Cells(i, 3).Value ' Medie
+            wsbuget.Cells(IndPol, 4).Value = wsStudent.Cells(i, 7).Value ' Grupa
+            IndPol = IndPol + 1
+        End If
+    Next i
+End Sub
+\\ pentru a tremite unil campuri  de pe o foie pe alta 
+
+Private Sub gogogogo_Click()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim cell As Range
+    Dim rng As Range
+    
+    ' Referin?a la foaia activa
+    Set ws = ThisWorkbook.ActiveSheet
+    
+    ' Gase?te ultimul rand utilizat in coloana H
+    lastRow = ws.Cells(ws.Rows.Count, "F").End(xlUp).Row
+    
+    ' Definim intervalul de celule pe care dorim sa aplicam formatarea
+    Set rng = ws.Range("F2:F" & lastRow)
+    
+    ' Parcurgem fiecare celula din intervalul definit
+    For Each cell In rng
+        ' Verificam daca valoarea celulei este mai mare sau egala cu 5
+        If cell.Value <= 9 Then
+            ' Daca da, coloreaza celula cu verde
+            cell.Interior.Color = RGB(0, 255, 0) ' Verde
+        ElseIf cell.Value >= 10 Then
+            ' Daca nu, coloreaza celula cu ro?u
+            cell.Interior.Color = RGB(255, 0, 0) ' Ro?u
+        End If
+    Next cell
+End Sub
+
+\\ va compara capurile si le va colora in culoare nevoita 
+' Subprocedura pentru butonul radio care va anula formatarea celulelor
+Private Sub Anularego_Click()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim cell As Range
+    Dim rng As Range
+    
+    ' Referin?a la foaia activa
+    Set ws = ThisWorkbook.ActiveSheet
+    
+    ' Gase?te ultimul rand utilizat in coloana G
+    lastRow = ws.Cells(ws.Rows.Count, "F").End(xlUp).Row
+    
+    ' Definirea intervalului de celule pe care dorim sa eliminam formatarea
+    Set rng = ws.Range("F2:F" & lastRow)
+    
+    ' Parcurgem fiecare celula din intervalul definit
+    For Each cell In rng
+        ' Resetam culoarea de fundal a celulei
+        cell.Interior.ColorIndex = xlNone
+    Next cell
+End Sub
+
+\\ va anula totul ce este mai sus sublimentat cu verde sau rosu 
+Private Sub cmdNext_Click()
+    ' Verificam daca pagina curenta este ultima pagina
+    If MultiPage1.Value < MultiPage1.Pages.Count - 1 Then
+        ' Daca nu, trecem la urmatoarea pagina
+        MultiPage1.Value = MultiPage1.Value + 1
+    End If
+End Sub
+
+\\ butonul next 
+Private Sub cmdExit_Click()
+ UserForm1.Hide
+End Sub
+\\ pentru botonul de esire 
+
+Private Sub cmdAcrual_Click()
+lbData.Caption = Date
+
+Dim Day As Variant
+
+    Day = Array("Duminica", "Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata")
+    lbZIua.Caption = Day(Weekday(Date) - 1)
+    ThisWorkbook.ActiveSheet.Range("H" & Rows.Count).End(xlUp).Offset(1).Value = Date
+    
+     ' ?terge con?inutul din TextBox-uri
+
+End Sub
+\\ pentru butonul care va ampla in pagina si in formular ziua si data 
+
+ThisWorkbook.ActiveSheet.Range("G" & Rows.Count).End(xlUp).Offset(1).Value = media
+\\ linia de cod care permite sa introduceci in lista pe coloana oate elementele inscrise in ea 
+
+
+
+
+
+

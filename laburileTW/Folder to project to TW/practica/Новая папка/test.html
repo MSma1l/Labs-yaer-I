@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplu</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Acest lucru este important pentru a poziționa secțiunea laterală în funcție de cursorul mouse-ului */
+  }
+  
+  .container {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    align-items: flex-start; /* Imaginile sunt aliniate sus */
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .aside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    background-color: #f2f2f2;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 0;
+    z-index: 1; /* Asigurăm că meniul este vizibil peste conținut */
+  }
+  
+  .aside.active {
+    max-height: 500px; /* Înălțimea maximă a elementelor de interior */
+  }
+  
+  .items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .items li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .items li:last-child {
+    border-bottom: none;
+  }
+
+  .hover-trigger {
+    cursor: pointer;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div onmouseover="toggleAside(event)" onmouseout="toggleAside(event)">
+    <img src="https://via.placeholder.com/50" alt="Imagine" class="hover-trigger">
+    <aside class="aside" id="myAside" onmouseover="keepMenuOpen()" onmouseout="closeMenu()">
+      <ul class="items">
+        <li onclick="doSomething()">Element 1</li>
+        <li onclick="doSomething()">Element 2</li>
+        <li onclick="doSomething()">Element 3</li>
+        <li onclick="doSomething()">Element 4</li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<script>
+var asideTimeout;
+
+function toggleAside(event) {
+  var aside = document.getElementById('myAside');
+  clearTimeout(asideTimeout);
+  if (event.type === 'mouseover') {
+    aside.classList.add('active');
+  } else if (event.type === 'mouseout') {
+    asideTimeout = setTimeout(function() {
+      aside.classList.remove('active');
+    }, 300); // Un timp mic de întârziere pentru a permite trecerea la meniul lateral
+  }
+}
+
+function keepMenuOpen() {
+  clearTimeout(asideTimeout);
+}
+
+function closeMenu() {
+  var aside = document.getElementById('myAside');
+  asideTimeout = setTimeout(function() {
+    aside.classList.remove('active');
+  }, 300); // Un timp mic de întârziere pentru a permite trecerea la meniul lateral
+}
+
+function doSomething() {
+  alert('Ați apăsat un element din meniu!');
+}
+</script>
+
+</body>
+</html>

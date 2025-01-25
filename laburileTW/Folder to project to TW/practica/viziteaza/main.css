@@ -1,0 +1,61 @@
+
+
+main.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 600px; /* Ajustează valoarea pentru a lăsa mai mult spațiu sub header */
+}
+
+.images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.image-wrapper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    transform: rotate(45deg); /* Formă de romb */
+    border: 25px solid #ccc; /* Ramă decorativă */
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: rotate(-45deg); /* Rotește imaginea înapoi pentru a fi corectă */
+}
+
+.image-wrapper.large {
+    width: 500px;
+    height: 500px;
+}
+
+.image-wrapper.small {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: -80px; /* Poziționează imaginea mică deasupra */
+    right: -80px; /* Poziționează în colțul din dreapta */
+}
+
+.text {
+    max-width: 50%;
+    text-align: left;
+}
+
+.text h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
